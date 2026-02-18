@@ -393,23 +393,6 @@
                   let imgUrl = topBanner.getImageProperty && topBanner.getImageProperty("image");
                   let title = (topBanner.getStringProperty && topBanner.getStringProperty("title")) || "";
                   let description = (topBanner.getStringProperty && topBanner.getStringProperty("description")) || "";
-                  let url = (topBanner.getStringProperty && topBanner.getStringProperty("url")) || "";
-                  // If a property is sent as JSON, read it with getJsonProperty (key must match your Braze banner template).
-                  const jsonData = topBanner.getJsonProperty && topBanner.getJsonProperty("data");
-                  let jsonBlock = "";
-                  if (jsonData != null && typeof jsonData === "object") {
-                    if (jsonData.title != null) title = String(jsonData.title);
-                    if (jsonData.description != null) description = String(jsonData.description);
-                    if (jsonData.url != null) url = String(jsonData.url);
-                    if (jsonData.image != null) imgUrl = String(jsonData.image);
-                    if (jsonData.html != null && typeof jsonData.html === "string") {
-                      jsonBlock = "<div class='headless-banner-json-html' style='flex:1; padding:16px 20px;'>" + jsonData.html + "</div>";
-                    } else if (jsonData.body != null) {
-                      jsonBlock = "<div style='flex:1; padding:16px 20px; color:#333;'>" + escapeHtml(String(jsonData.body)) + "</div>";
-                    } else if (Object.keys(jsonData).length > 0 && !imgUrl && title === "" && description === "") {
-                      jsonBlock = "<pre style='flex:1; padding:16px 20px; margin:0; font-size:12px; overflow:auto;'>" + escapeHtml(JSON.stringify(jsonData, null, 2)) + "</pre>";
-                    }
-                  }
                   const imgBlock = (imgUrl) ? "<div style='flex:0 0 auto; max-width:40%; max-height:300px; overflow:hidden;'><img class='img-fluid' src='" + escapeHtml(imgUrl) + "' style='width:auto; height:100%; max-height:300px; object-fit:cover; display:block;'></div>" : "";
                   const contentBlock = jsonBlock || ("<div style='flex:1; padding:16px 20px; display:flex; flex-direction:column; justify-content:center;'>" +
                     (title !== "" ? "<h4 style='margin:0 0 8px 0;'>" + escapeHtml(title) + "</h4>" : "") +
